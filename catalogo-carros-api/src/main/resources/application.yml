@@ -1,0 +1,91 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: catalogo-carros-api
+  profiles:
+    active: ${PROFILE:local}
+  output:
+    ansi:
+      enabled: ALWAYS
+
+# Configuracoes de log
+logging:
+  pattern:
+    console: '%clr(%d{dd-MM-yyyy HH:mm:ss}){faint} %clr(%5p) %clr([%t]){faint} %clr(%-40.40logger){cyan} %clr(:){yellow} %m%n'
+  file:
+    name: app.log
+  level:
+    root: warn
+    br:
+      com:
+        bgrbarbosa:
+          catalogo_carros_api: info
+
+# Parametros de configuracoes para rodar em ambiente docker
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+# Parametros de configuracoes para rodar em ambiente local
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/carrosdb}
+    username: ${DATASOURCE_USERNAME:postgres}
+    password: ${DATASOURCE_PASSWORD:example}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# Parametros de configuracoes para rodar em ambiente de testes
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+
