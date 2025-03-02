@@ -11,8 +11,8 @@ import java.util.List;
 @Entity
 @Table(name = "tb_type")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Type {
 
     @Id
@@ -26,4 +26,12 @@ public class Type {
     @JsonIgnore
     private List<Model> model;
 
+    public Type(Long id, String type) {
+        Id = id;
+        this.type = type;
+    }
+
+    public void setType(String type) {
+        this.type = type.toUpperCase();
+    }
 }

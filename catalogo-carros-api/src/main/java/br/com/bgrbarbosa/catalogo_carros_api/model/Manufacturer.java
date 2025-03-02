@@ -25,4 +25,13 @@ public class Manufacturer {
     @OneToMany(mappedBy = "manufacturer", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Model> model;
+
+    public Manufacturer(Long id, String manufacturer) {
+        this.id = id;
+        this.manufacturer = manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer.toUpperCase();
+    }
 }

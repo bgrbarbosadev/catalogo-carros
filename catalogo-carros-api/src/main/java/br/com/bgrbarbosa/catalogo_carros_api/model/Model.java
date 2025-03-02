@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_model")
 @Data
@@ -30,4 +32,18 @@ public class Model {
     @JsonIgnore
     private Type type;
 
+    @OneToMany(mappedBy = "model", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Vehicle> vehicles;
+
+    public Model(Long id, String model, Manufacturer manufacturer, Type type) {
+        Id = id;
+        this.model = model;
+        this.manufacturer = manufacturer;
+        this.type = type;
+    }
+
+    public void setModel(String model) {
+        this.model = model.toUpperCase();
+    }
 }
