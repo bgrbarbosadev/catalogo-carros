@@ -55,8 +55,8 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public Boolean existType(Model type) {
-        Optional<Model> aux = repository.existByType(type.getModel());
+    public Boolean existType(Model model) {
+        Optional<Model> aux = repository.existByModel(model.getModel());
         return (aux.isPresent()) ? true : false;
     }
 }

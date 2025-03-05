@@ -39,6 +39,7 @@ public class Vehicle {
     private EnumTransmission transmission;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private EnumFuel fuel;
 
     @Column

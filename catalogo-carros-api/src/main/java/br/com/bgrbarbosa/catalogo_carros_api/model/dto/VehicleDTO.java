@@ -3,7 +3,6 @@ package br.com.bgrbarbosa.catalogo_carros_api.model.dto;
 import br.com.bgrbarbosa.catalogo_carros_api.model.Model;
 import br.com.bgrbarbosa.catalogo_carros_api.model.enums.EnumTransmission;
 import br.com.bgrbarbosa.catalogo_carros_api.model.enums.EnumFuel;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -40,5 +39,5 @@ public record VehicleDTO(
         @Size(min = 3, max = 50, message = "{size.message}")
         String cor,
 
-        @NotNull
-        Model model) { }
+        Model model
+) { }

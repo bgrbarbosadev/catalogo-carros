@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface ModelRepository extends JpaRepository<Model, Long> {
 
     @Query("SELECT m FROM Model m WHERE m.model = :model")
-    Optional<Model> existByType(String model);
+    Optional<Model> existByModel(String model);
 }

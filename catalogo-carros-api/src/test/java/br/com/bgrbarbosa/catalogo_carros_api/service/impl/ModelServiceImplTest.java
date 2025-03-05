@@ -85,7 +85,7 @@ class ModelServiceImplTest {
     void youMustNotEnterAVehicleModel() {
 
         // Arrange
-        when(repository.existByType(model.getModel())).thenReturn(Optional.of(model));
+        when(repository.existByModel(model.getModel())).thenReturn(Optional.of(model));
 
         // Act & Assert
         assertThrows(IllegalArgument.class, () -> {
@@ -93,7 +93,7 @@ class ModelServiceImplTest {
         });
 
         // Verify
-        verify(repository, times(1)).existByType(model.getModel());
+        verify(repository, times(1)).existByModel(model.getModel());
         verify(repository, never()).save(model);
     }
 

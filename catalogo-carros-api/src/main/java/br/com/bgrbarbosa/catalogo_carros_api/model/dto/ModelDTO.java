@@ -11,11 +11,14 @@ import jakarta.validation.constraints.Size;
 
 public record ModelDTO(
         Long id,
+
         @NotBlank(message = "{not.blank.message}")
         @Size(min = 3, max = 50, message = "{size.message}")
         String model,
+
         @NotNull
         Manufacturer manufacturer,
+
         @NotNull
         Type type) {
 }

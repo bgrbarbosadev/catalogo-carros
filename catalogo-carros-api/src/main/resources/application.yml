@@ -4,7 +4,7 @@ spring:
   application:
     name: catalogo-carros-api
   profiles:
-    active: ${PROFILE:local}
+    active: ${PROFILE:test}
   output:
     ansi:
       enabled: ALWAYS

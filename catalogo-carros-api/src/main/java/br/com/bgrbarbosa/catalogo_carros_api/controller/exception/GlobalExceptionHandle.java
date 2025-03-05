@@ -47,8 +47,8 @@ public class GlobalExceptionHandle {
         err.setPath(request.getRequestURI());
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
-        err.setError("Notification not found!!");
-        log.error("Notification not found! - " + "Path: " + err.getPath());
+        err.setError("Resource not found!");
+        log.error("Resource not found! - " + "Path: " + err.getPath());
         return ResponseEntity.status(status).body(err);
     }
 
