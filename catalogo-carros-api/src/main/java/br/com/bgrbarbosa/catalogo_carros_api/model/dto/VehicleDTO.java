@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 
 
 public record VehicleDTO(
+
         Long id,
 
         @NotBlank(message = "{not.blank.message}")
@@ -22,9 +23,8 @@ public record VehicleDTO(
         @NotNull
         Double price,
 
-        @NotBlank(message = "{not.blank.message}")
-        @Size(min = 1, max = 7, message = "{size.message}")
-        String mileage,
+        @NotNull
+        Double mileage,
 
         @NotBlank(message = "{not.blank.message}")
         String items,

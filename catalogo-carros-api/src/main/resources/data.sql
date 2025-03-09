@@ -50,6 +50,6 @@ INSERT INTO tb_model (model, manufacturer_id, type_id) VALUES ('ETIOS', 4, 2);
 INSERT INTO tb_model (model, manufacturer_id, type_id) VALUES ('UNO', 2, 2);
 
 -- Inserções na tabela tb_vehicle
-INSERT INTO tb_vehicle (plate, yearOfManufacture, price, mileage, items, transmission, fuel, cor, model_id) VALUES ('LJM1890', 2025, 50000.00, 10000, 'COMPLETO', 'AUTOMATIC', 'FLEX', 'PRETO', 1);
-INSERT INTO tb_vehicle (plate, yearOfManufacture, price, mileage, items, transmission, fuel, cor, model_id) VALUES ('KVC6525', 2020, 40000.00, 200000, 'COMPLETO', 'AUTOMATIC', 'FLEX', 'VERMELHO', 2);
-INSERT INTO tb_vehicle (plate, yearOfManufacture, price, mileage, items, transmission, fuel, cor, model_id) VALUES ('LSK7777', 2022, 35000.00, 5000, 'COMPLETO', 'AUTOMATIC', 'FLEX', 'BRANCO', 3);
+INSERT INTO tb_vehicle (plate, year_Of_Manufacture, price, mileage, items, transmission, fuel, cor, model_id) VALUES ('LJM1890', '2025', 50000.00, 10000, 'COMPLETO', 'AUTOMATIC', 'FLEX', 'PRETO', 1);
+INSERT INTO tb_vehicle (plate, year_of_manufacture, price, mileage, items, transmission, fuel, cor, model_id) VALUES ('KVC6525', '2020', 40000.00, 200000, 'COMPLETO', 'AUTOMATIC', 'FLEX', 'VERMELHO', 2);
+INSERT INTO tb_vehicle (plate, year_Of_Manufacture, price, mileage, items, transmission, fuel, cor, model_id) VALUES ('LSK7777', '2022', 35000.00, 5000, 'COMPLETO', 'AUTOMATIC', 'FLEX', 'BRANCO', 3);

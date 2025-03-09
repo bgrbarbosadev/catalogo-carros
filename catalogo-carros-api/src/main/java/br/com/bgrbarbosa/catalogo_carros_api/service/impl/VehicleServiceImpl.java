@@ -2,13 +2,18 @@ package br.com.bgrbarbosa.catalogo_carros_api.service.impl;
 
 
 import br.com.bgrbarbosa.catalogo_carros_api.model.Vehicle;
+import br.com.bgrbarbosa.catalogo_carros_api.model.dto.VehicleDTO;
 import br.com.bgrbarbosa.catalogo_carros_api.repository.VehicleRepository;
 import br.com.bgrbarbosa.catalogo_carros_api.service.VehicleService;
 import br.com.bgrbarbosa.catalogo_carros_api.service.exception.ResourceNotFoundException;
+import br.com.bgrbarbosa.catalogo_carros_api.specification.filter.VehicleFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +27,8 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<Vehicle> findAll() {
-        return repository.findAll();
+    public List<Vehicle> findAll(Pageable page, VehicleFilter filter) {
+        return repository.findAll(filter.toSpecification());
     }
 
     @Override

@@ -1,17 +1,17 @@
 package br.com.bgrbarbosa.catalogo_carros_api.controller;
 
 
-
-import br.com.bgrbarbosa.catalogo_carros_api.controller.mapper.ManuFacturerMapper;
 import br.com.bgrbarbosa.catalogo_carros_api.controller.mapper.VehicleMapper;
-import br.com.bgrbarbosa.catalogo_carros_api.model.Manufacturer;
 import br.com.bgrbarbosa.catalogo_carros_api.model.Vehicle;
-import br.com.bgrbarbosa.catalogo_carros_api.model.dto.ManufacturerDTO;
 import br.com.bgrbarbosa.catalogo_carros_api.model.dto.VehicleDTO;
-import br.com.bgrbarbosa.catalogo_carros_api.service.ManufacturerService;
 import br.com.bgrbarbosa.catalogo_carros_api.service.VehicleService;
+import br.com.bgrbarbosa.catalogo_carros_api.specification.filter.VehicleFilter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +35,12 @@ public class VehicleController {
     }
 
     @GetMapping
-     public ResponseEntity<List<VehicleDTO>> searchAll(){
-        List<VehicleDTO> listDTO = mapper.parseToListDTO(service.findAll());
-        return ResponseEntity.ok(listDTO);
+     public ResponseEntity<Page<VehicleDTO>> searchAll(
+            VehicleFilter filter,
+            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable page){
+        List<VehicleDTO> listDTO = mapper.parseToListDTO(service.findAll(page, filter));
+        Page<VehicleDTO> pageDTO = mapper.toPageDTO(listDTO, page);
+        return ResponseEntity.ok(pageDTO);
     }
 
     @GetMapping("/{id}")

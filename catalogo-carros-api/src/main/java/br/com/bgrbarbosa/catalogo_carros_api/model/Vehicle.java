@@ -29,7 +29,7 @@ public class Vehicle {
     private Double price;
 
     @Column
-    private String mileage;
+    private Double mileage;
 
     @Column
     private String items;
@@ -54,15 +54,15 @@ public class Vehicle {
         return plate.toUpperCase();
     }
 
-    public String getMileage() {
-        return mileage.toUpperCase();
-    }
-
     public String getItems() {
         return items.toUpperCase();
     }
 
     public String getCor() {
         return cor.toUpperCase();
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor.toUpperCase();
     }
 }
