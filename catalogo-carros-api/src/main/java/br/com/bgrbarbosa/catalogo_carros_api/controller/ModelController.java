@@ -10,6 +10,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,30 +27,35 @@ public class ModelController {
     private final ModelMapper mapper;
 
     @PostMapping
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<ModelDTO> insert(@RequestBody @Valid ModelDTO dto){
         Model result = service.insert(mapper.parseToEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.parseToDto(result));
     }
 
     @GetMapping
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
      public ResponseEntity<List<ModelDTO>> searchAll(){
         List<ModelDTO> listDTO = mapper.parseToListDTO(service.findAll());
         return ResponseEntity.ok(listDTO);
     }
 
     @GetMapping("/{id}")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public ResponseEntity<ModelDTO> searchById(@PathVariable("id") Long id){
         ModelDTO result = mapper.parseToDto(service.findById(id));
         return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<String> delete(@PathVariable("id") Long id){
         service.delete(id);
         return ResponseEntity.accepted().body("Successfully deleted!!");
     }
 
     @PutMapping
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<ModelDTO> update(@RequestBody @Valid ModelDTO dto){
         Model aux = service.findById(dto.id());
         if (aux.getId() != null) {

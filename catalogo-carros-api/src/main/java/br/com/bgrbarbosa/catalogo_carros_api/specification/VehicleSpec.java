@@ -1,6 +1,6 @@
 package br.com.bgrbarbosa.catalogo_carros_api.specification;
 
-import br.com.bgrbarbosa.catalogo_carros_api.model.Model;
+
 import br.com.bgrbarbosa.catalogo_carros_api.model.Vehicle;
 import br.com.bgrbarbosa.catalogo_carros_api.model.enums.EnumFuel;
 import br.com.bgrbarbosa.catalogo_carros_api.model.enums.EnumTransmission;

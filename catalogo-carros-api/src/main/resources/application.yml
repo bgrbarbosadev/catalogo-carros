@@ -8,7 +8,10 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
-
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:my-secret-key}
 # Configuracoes de log
 logging:
   pattern:
