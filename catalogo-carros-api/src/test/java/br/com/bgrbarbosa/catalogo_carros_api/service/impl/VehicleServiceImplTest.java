@@ -6,10 +6,10 @@ import br.com.bgrbarbosa.catalogo_carros_api.model.Type;
 import br.com.bgrbarbosa.catalogo_carros_api.model.Vehicle;
 import br.com.bgrbarbosa.catalogo_carros_api.model.enums.EnumFuel;
 import br.com.bgrbarbosa.catalogo_carros_api.model.enums.EnumTransmission;
-import br.com.bgrbarbosa.catalogo_carros_api.repository.ModelRepository;
 import br.com.bgrbarbosa.catalogo_carros_api.repository.VehicleRepository;
-import br.com.bgrbarbosa.catalogo_carros_api.service.exception.IllegalArgument;
 import br.com.bgrbarbosa.catalogo_carros_api.service.exception.ResourceNotFoundException;
+import br.com.bgrbarbosa.catalogo_carros_api.specification.filter.VehicleFilter;
+import org.springframework.data.domain.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +19,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.PageableDefault;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 
 @Slf4j
@@ -54,6 +56,10 @@ class VehicleServiceImplTest {
 
     private Vehicle vehicleUpdate;
 
+    private VehicleFilter filter;
+
+    private Pageable page;
+
     @BeforeEach
     void setUp() {
         this.existId = 1L;
@@ -66,12 +72,14 @@ class VehicleServiceImplTest {
 
         this.model = new Model(1L, "ETIOS",this.manufacturer, this.type);
 
-        this.vehicle = new Vehicle(1L, "KJR-9999", "2024", 50000.00, "20000.00",
+        this.vehicle = new Vehicle(1L, "KJR-9999", "2024", 50000.00, 20000.00,
                                     "Completo", EnumTransmission.AUTOMATIC, EnumFuel.FLEX, "Vermelho", this.model);
 
-        this.vehicleUpdate = new Vehicle(1L, "KJR-9999", "2024", 50000.00, "20000.00",
+        this.vehicleUpdate = new Vehicle(1L, "KJR-9999", "2024", 50000.00, 20000.00,
                 "Completo", EnumTransmission.AUTOMATIC, EnumFuel.FLEX, "Vermelho", this.model);
 
+        this.filter = new VehicleFilter();
+        this.page = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "id"));      // Arrange
 
     }
 
@@ -97,11 +105,15 @@ class VehicleServiceImplTest {
     @DisplayName("Must return an IllegalArgument when trying to register")
     void shouldReturnAVehicleList() {
 
-        // Arrange
-        when(repository.findAll()).thenReturn(List.of(vehicle));
+        Pageable pageable = mock(Pageable.class); // Mock do Pageable
+        VehicleFilter filter = mock(VehicleFilter.class); // Mock do filtro
+        Specification<Vehicle> specification = mock(Specification.class);
+
+        when(filter.toSpecification()).thenReturn(specification);
+        when(repository.findAll(filter.toSpecification())).thenReturn(List.of(vehicle));
 
         // Act & Assert
-        List<Vehicle> list = service.findAll();
+        List<Vehicle> list = service.findAll(page, filter);
 
         // Verify
         assertNotNull(list);
